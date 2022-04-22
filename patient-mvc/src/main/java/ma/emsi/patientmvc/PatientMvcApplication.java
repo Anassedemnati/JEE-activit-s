@@ -19,19 +19,16 @@ public class PatientMvcApplication {
     @Bean
     CommandLineRunner commandLineRunner(PatientRepository patientRepository){
         return args -> {
-            patientRepository.save(new Patient(null,"Anasse",new Date(),false,12));
-            patientRepository.save(new Patient(null,"mehdi",new Date(),false,24));
-            patientRepository.save(new Patient(null,"Med",new Date(),false,12));
-            patientRepository.save(new Patient(null,"Yahya",new Date(),true,34));
-            patientRepository.findAll().forEach(patient -> {
+            patientRepository.save(new Patient(null,"Anasse",new Date(),false,112));
+            patientRepository.save(new Patient(null,"mehdi",new Date(),false,124));
+            patientRepository.save(new Patient(null,"Medahe",new Date(),false,112));
+            patientRepository.save(new Patient(null,"Yahya",new Date(),true,134));
+           /* patientRepository.findAll().forEach(patient -> {
                 System.out.println("******************************");
                 System.out.println(patient.getNom());
                 System.out.println(patient.getDateNaissance());
                 System.out.println(patient.getScore());
-
-
-
-            });
+            });*/
         };
     }
 }
