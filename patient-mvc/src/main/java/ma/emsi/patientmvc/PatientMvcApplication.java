@@ -2,6 +2,7 @@ package ma.emsi.patientmvc;
 
 import ma.emsi.patientmvc.entites.Patient;
 import ma.emsi.patientmvc.repositories.PatientRepository;
+import ma.emsi.patientmvc.sec.service.SecurityService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +17,7 @@ public class PatientMvcApplication {
         SpringApplication.run(PatientMvcApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner commandLineRunner(PatientRepository patientRepository){
         return args -> {
             patientRepository.save(new Patient(null,"Anasse",new Date(),false,112));
@@ -29,6 +30,24 @@ public class PatientMvcApplication {
                 System.out.println(patient.getDateNaissance());
                 System.out.println(patient.getScore());
             });*/
+        };
+    }
+    @Bean
+    CommandLineRunner saveUsers(SecurityService securityService){
+        return args -> {
+            //ajouter des user
+            securityService.saveNewUser("Anasse","1234","1234");
+            securityService.saveNewUser("Boutaina","1234","1234");
+            securityService.saveNewUser("Nabile","1234","1234");
+            //ajouter des role
+            securityService.saveNewRole("USER","");
+            securityService.saveNewRole("ADMIN","");
+            //ajouter des role au utulistaeur
+            securityService.addRoleToUser("Anasse","ADMIN");
+            securityService.addRoleToUser("Boutaina","USER");
+            securityService.addRoleToUser("Nabile","USER");
+
+
         };
     }
 }
