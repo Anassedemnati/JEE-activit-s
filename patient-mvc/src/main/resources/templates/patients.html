@@ -16,7 +16,7 @@
     <div class="card">
         <div class="card-header">Liste des patients</div>
         <div class="card-body">
-            <form method="get" th:action="@{index}">
+            <form method="get" th:action="@{/user/index}">
                 <label>key word</label>
                 <input type="text" name="keyword" th:value="${keyword}">
                 <button class="btn btn-primary" type="submit">chercher</button>
@@ -39,12 +39,12 @@
                     <td th:text="${p.isMalade()}"></td>
                     <td th:text="${p.getScore()}"></td>
                     <td sec:authorize="hasRole('ADMIN')">
-                        <a class="btn btn-success" th:href="@{edit(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
+                        <a class="btn btn-success" th:href="@{/admin/edit(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Edit
                         </a>
                     </td>
                     <td sec:authorize="hasRole('ADMIN')">
-                        <a onclick="return confirm('Etes vous sure ?')" class="btn btn-danger" th:href="@{delete(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
+                        <a onclick="return confirm('Etes vous sure ?')" class="btn btn-danger" th:href="@{/admin/delete(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Delete
                         </a>
                     </td>
@@ -56,7 +56,7 @@
                     <a th:class="${status.index==currentPage?
                     'btn btn-primary ms-1':'btn btn-outline-primary ms-1'}"
                        th:text="${status.index}"
-                       th:href="@{index(page=${status.index},keyword=${keyword})}"
+                       th:href="@{/user/index(page=${status.index},keyword=${keyword})}"
                     ></a>
                 </li>
             </ul>
@@ -64,6 +64,6 @@
         </div>
     </div>
 </div>
-
+</div>
 </body>
 </html>

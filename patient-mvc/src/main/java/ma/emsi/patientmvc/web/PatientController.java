@@ -25,7 +25,7 @@ import java.util.List;
 public class PatientController {
     @Autowired
     PatientRepository patientRepository;
-    @GetMapping(path = "/index")
+    @GetMapping(path = "/user/index")
     public String patients(Model model,
                           @RequestParam(name = "page",defaultValue = "0") int page,
                            @RequestParam(name = "size",defaultValue = "10") int size,
@@ -38,29 +38,31 @@ public class PatientController {
 
         return "patients";
     }
-    @GetMapping("/delete")
+    @GetMapping("/admin/delete")
     public String delete(Long id,String keyword,int page){
         patientRepository.deleteById(id);
-        return "redirect:/index?page="+page+"&keyword="+keyword;
+        return "redirect:/user/index?page="+page+"&keyword="+keyword;
     }
     @GetMapping("/")
     public String home(){
-        return "redirect:/index";
+        return "home";
     }
-    @GetMapping("/formPatient")
+
+
+    @GetMapping("/admin/formPatient")
     public String formPatient(Model model){
         model.addAttribute("patient",new Patient());
         return "formPatient";
     }
-    @PostMapping(path = "/save")
+    @PostMapping(path = "/admin/save")
     public String save(Model model, @Valid Patient patient, BindingResult bindingResult,
                        @RequestParam(defaultValue = "0") int page,
                        @RequestParam(defaultValue = "") String keyword){
         if (bindingResult.hasErrors()) return "formPatient";
         patientRepository.save(patient);
-        return "redirect:/index?page="+page+"&keyword="+keyword;
+        return "redirect:/user/index?page="+page+"&keyword="+keyword;
     }
-    @GetMapping("/edit")
+    @GetMapping("/admin/edit")
     public String editPatient(Model model,Long id,String keyword,int page){
         Patient patient = patientRepository.findById(id).orElse(null);
         if (patient==null)throw new RuntimeException("Patient introuvable");
@@ -72,7 +74,7 @@ public class PatientController {
 
 
     //api rest
-    @GetMapping("/patients")
+    @GetMapping("/user/patients")
     @ResponseBody
     public List<Patient> listPatients(){
 
