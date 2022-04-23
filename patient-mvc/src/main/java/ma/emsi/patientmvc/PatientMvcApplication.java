@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 
@@ -32,7 +34,7 @@ public class PatientMvcApplication {
             });*/
         };
     }
-    @Bean
+   // @Bean
     CommandLineRunner saveUsers(SecurityService securityService){
         return args -> {
             //ajouter des user
@@ -49,5 +51,9 @@ public class PatientMvcApplication {
 
 
         };
+    }
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

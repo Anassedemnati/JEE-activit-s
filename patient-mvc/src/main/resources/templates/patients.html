@@ -38,12 +38,12 @@
                     <td th:text="${p.getDateNaissance()}"></td>
                     <td th:text="${p.isMalade()}"></td>
                     <td th:text="${p.getScore()}"></td>
-                    <td sec:authorize="hasRole('ADMIN')">
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <a class="btn btn-success" th:href="@{/admin/edit(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Edit
                         </a>
                     </td>
-                    <td sec:authorize="hasRole('ADMIN')">
+                    <td sec:authorize="hasAuthority('ADMIN')">
                         <a onclick="return confirm('Etes vous sure ?')" class="btn btn-danger" th:href="@{/admin/delete(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Delete
                         </a>
