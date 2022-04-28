@@ -1,6 +1,8 @@
 package ma.emsi.patientmvc;
 
+import ma.emsi.patientmvc.entites.Medecin;
 import ma.emsi.patientmvc.entites.Patient;
+import ma.emsi.patientmvc.repositories.MedecinRepository;
 import ma.emsi.patientmvc.repositories.PatientRepository;
 import ma.emsi.patientmvc.sec.service.SecurityService;
 import org.springframework.boot.CommandLineRunner;
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
+import java.util.UUID;
 
 @SpringBootApplication
 public class PatientMvcApplication {
@@ -34,10 +37,10 @@ public class PatientMvcApplication {
             });*/
         };
     }
-   // @Bean
-    CommandLineRunner saveUsers(SecurityService securityService){
+   @Bean
+    CommandLineRunner saveUsers(SecurityService securityService, MedecinRepository medecinRepository){
         return args -> {
-            //ajouter des user
+           /* //ajouter des user
             securityService.saveNewUser("Anasse","1234","1234");
             securityService.saveNewUser("Boutaina","1234","1234");
             securityService.saveNewUser("Nabile","1234","1234");
@@ -48,10 +51,14 @@ public class PatientMvcApplication {
             securityService.addRoleToUser("Anasse","ADMIN");
             securityService.addRoleToUser("Boutaina","USER");
             securityService.addRoleToUser("Nabile","USER");
-
+            */
+            //add doctor
+            Medecin medecin =new Medecin( UUID.randomUUID().getLeastSignificantBits(), "Anasse"+Math.random()*20,"anasse"+Math.random()*22+"@gmail.com","DANT",null);
+            medecinRepository.save(medecin);
 
         };
     }
+
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();

@@ -7,16 +7,16 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Patient</title>
+    <title>Medecin</title>
 
 </head>
 <body>
 <div layout:fragment="content1">
 <div class="container mt-2">
     <div class="card">
-        <div class="card-header">Liste des patients</div>
+        <div class="card-header">Liste des medecins</div>
         <div class="card-body">
-            <form method="get" th:action="@{/user/index}">
+            <form method="get" th:action="@{/user/medecin/index}">
                 <label>key word</label>
                 <input type="text" name="keyword" th:value="${keyword}">
                 <button class="btn btn-primary" type="submit">chercher</button>
@@ -26,18 +26,18 @@
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
-                    <th>Date</th>
-                    <th>Malade</th>
-                    <th>Score</th>
+                    <th>Email</th>
+                    <th>specialite</th>
+
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="p:${listPatients}">
+                <tr th:each="p:${listMedecin}">
                     <td th:text="${p.getId()}"></td>
                     <td th:text="${p.getNom()}"></td>
-                    <td th:text="${p.getDateNaissance()}"></td>
-                    <td th:text="${p.isMalade()}"></td>
-                    <td th:text="${p.getScore()}"></td>
+                    <td th:text="${p.getEmail()}"></td>
+                    <td th:text="${p.getSpecialite()}"></td>
+
                     <td sec:authorize="hasAuthority('ADMIN')">
                         <a class="btn btn-success" th:href="@{/admin/edit(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Edit
