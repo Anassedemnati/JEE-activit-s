@@ -14,7 +14,8 @@
 <div layout:fragment="content1">
 <div class="container mt-2">
     <div class="card">
-        <div class="card-header">Liste des patients</div>
+        <div class="card-header"><h2>Liste des patients</h2></div>
+        <div class="card-header"><a class="btn btn-sm btn-success" th:href="@{/admin/formPatient}" sec:authorize="hasAuthority('ADMIN')">Nouveau patient</a></div>
         <div class="card-body">
             <form method="get" th:action="@{/user/index}">
                 <label>key word</label>

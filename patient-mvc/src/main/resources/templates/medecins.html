@@ -14,7 +14,8 @@
 <div layout:fragment="content1">
 <div class="container mt-2">
     <div class="card">
-        <div class="card-header">Liste des medecins</div>
+        <div class="card-header"><h2>Liste des medecins</h2></div>
+        <div class="card-header"><a class="btn btn-sm btn-success" th:href="@{/admin/medecin/formMedecin}" sec:authorize="hasAuthority('ADMIN')">Nouveau medecin</a></div>
         <div class="card-body">
             <form method="get" th:action="@{/user/medecin/index}">
                 <label>key word</label>
@@ -39,12 +40,12 @@
                     <td th:text="${p.getSpecialite()}"></td>
 
                     <td sec:authorize="hasAuthority('ADMIN')">
-                        <a class="btn btn-success" th:href="@{/admin/edit(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
+                        <a class="btn btn-success" th:href="@{/admin//medecin/edit(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Edit
                         </a>
                     </td>
                     <td sec:authorize="hasAuthority('ADMIN')">
-                        <a onclick="return confirm('Etes vous sure ?')" class="btn btn-danger" th:href="@{/admin/delete(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
+                        <a onclick="return confirm('Etes vous sure ?')" class="btn btn-danger" th:href="@{/admin/medecin/delete(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Delete
                         </a>
                     </td>
@@ -56,7 +57,7 @@
                     <a th:class="${status.index==currentPage?
                     'btn btn-primary ms-1':'btn btn-outline-primary ms-1'}"
                        th:text="${status.index}"
-                       th:href="@{/user/index(page=${status.index},keyword=${keyword})}"
+                       th:href="@{/user/medecin/index(page=${status.index},keyword=${keyword})}"
                     ></a>
                 </li>
             </ul>
