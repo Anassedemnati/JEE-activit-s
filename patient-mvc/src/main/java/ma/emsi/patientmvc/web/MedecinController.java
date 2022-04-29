@@ -70,6 +70,12 @@ public class MedecinController {
         return "editMedecin";
 
     }
+    @GetMapping("/admin/medecin/deleteMedecin")
+    public String deleteMedecin(Long id) {
+        medecinRepository.deleteById(id);
+        return "redirect:/user/medecin/index";
+
+    }
 
 
 }
