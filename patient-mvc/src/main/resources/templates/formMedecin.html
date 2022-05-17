@@ -15,7 +15,7 @@
     <div class="card col-md-6 offset-3">
         <div class="card-header">form medecin</div>
         <div class="card-body">
-            <form method="post" th:object="${formMedecin}" th:action="@{/admin/medecin/save}">
+            <form method="post" th:object="${medecin}" th:action="@{/admin/medecin/save}">
                 <div class="input-group mb-3">
                     <input  class="form-control" type="text" name="nom" placeholder="nom" aria-label="nom" th:value="${medecin.nom}"/>
                     <span class="text-danger" th:errors="${medecin.nom}"></span>

@@ -25,10 +25,10 @@ public class PatientMvcApplication {
     //@Bean
     CommandLineRunner commandLineRunner(PatientRepository patientRepository){
         return args -> {
-            patientRepository.save(new Patient(null,"Anasse",new Date(),false,112));
+           /* patientRepository.save(new Patient(null,"Anasse",new Date(),false,112,));
             patientRepository.save(new Patient(null,"mehdi",new Date(),false,124));
             patientRepository.save(new Patient(null,"Medahe",new Date(),false,112));
-            patientRepository.save(new Patient(null,"Yahya",new Date(),true,134));
+            patientRepository.save(new Patient(null,"Yahya",new Date(),true,134));*/
            /* patientRepository.findAll().forEach(patient -> {
                 System.out.println("******************************");
                 System.out.println(patient.getNom());

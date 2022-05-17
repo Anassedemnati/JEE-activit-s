@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="NavBar"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Rendez Vous</title>
+
+</head>
+
+<body>
+<div layout:fragment="content1">
+<div class="container mt-2">
+    <div class="card col-md-6 offset-3">
+        <div class="card-header">Rendez Vous</div>
+        <div class="card-body">
+            <form method="post" th:object="${rendezvous}" th:action="@{/admin/saveRDV}">
+                <div class="input-group mb-3">
+                    <input  class="form-control" type="text" name="id" placeholder="id" aria-label="id" th:value="${rendezvous.id}"/>
+                    <span class="text-danger" th:errors="${rendezvous.id}"></span>
+                    <br>
+                </div>
+                <div class="input-group mb-3">
+                    <input  class="form-control" type="date" name="date" placeholder="date" aria-label="date" th:value="${rendezvous.date}"/>
+                    <span class="text-danger" th:errors="${rendezvous.date}"></span>
+                    <br>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Status Rendez vous</label>
+                    <select name="status"  class="form-control">
+                        <option th:each="designation : ${designationList}"
+                                th:text="${designation}"
+
+
+                        />
+
+                    </select>
+                </div>
+
+        <div class="form-group mb-3">
+            <label>Patient</label>
+            <select  th:field="*{patient}" class="form-control">
+                <option th:each="p : ${patientList}"
+                        th:text="${p.getNom()}"
+                        th:value="${p.getId()}"
+
+                />
+
+            </select>
+
+        <div class="form-group mb-3">
+            <label>Medecin</label>
+            <select th:field="*{medecin}" class="form-control">
+                <option th:each="m : ${medecinList}"
+                        th:text="${m.getNom().toString()}"
+                        th:value="${m.getId()}"
+
+                />
+
+            </select>
+        </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+
+        </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

@@ -7,17 +7,17 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Medecin</title>
+    <title>Rendez vous</title>
 
 </head>
 <body>
 <div layout:fragment="content1">
 <div class="container mt-2">
     <div class="card">
-        <div class="card-header"><h2>Liste des medecins</h2></div>
-        <div class="card-header"><a class="btn btn-sm btn-success" th:href="@{/admin/medecin/formMedecin}" sec:authorize="hasAuthority('ADMIN')">Nouveau medecin</a></div>
+        <div class="card-header"><h2>Liste des dendez vous</h2></div>
+        <div class="card-header"><a class="btn btn-sm btn-success" th:href="@{/admin/formRendezVous}" sec:authorize="hasAuthority('ADMIN')">Nouveau Rendez Vous</a></div>
         <div class="card-body">
-            <form method="get" th:action="@{/user/medecin/index}">
+            <form method="get" th:action="@{/user/rendezvous/index}">
                 <label>key word</label>
                 <input type="text" name="keyword" th:value="${keyword}">
                 <button class="btn btn-primary" type="submit">chercher</button>
@@ -26,26 +26,24 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>specialite</th>
+                    <th>Date</th>
+                    <th>Status</th>
 
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="p:${listMedecin}">
+                <tr th:each="p:${rendezVousList}">
                     <td th:text="${p.getId()}"></td>
-                    <td th:text="${p.getNom()}"></td>
-                    <td th:text="${p.getEmail()}"></td>
-                    <td th:text="${p.getSpecialite()}"></td>
+                    <td th:text="${p.getDate()}"></td>
+                    <td th:text="${p.getStatus().name()}"></td>
 
                     <td sec:authorize="hasAuthority('ADMIN')">
-                        <a class="btn btn-success" th:href="@{/admin/medecin/editMedecin(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
+                        <a class="btn btn-success" th:href="@{/admin/rendezvous/editRendezVous(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Edit
                         </a>
                     </td>
                     <td sec:authorize="hasAuthority('ADMIN')">
-                        <a onclick="return confirm('Etes vous sure ?')" class="btn btn-danger" th:href="@{/admin/medecin/deleteMedecin(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
+                        <a onclick="return confirm('Etes vous sure ?')" class="btn btn-danger" th:href="@{/admin/rendezvous/deleteRendezVous(id=${p.getId()},keyword=${keyword},page=${currentPage})}">
                             Delete
                         </a>
                     </td>
@@ -53,11 +51,11 @@
                 </tbody>
             </table>
             <ul class="nav nav-pills ">
-                <li th:each="page,status:${page}">
+                <li th:each="page,status:${pages}">
                     <a th:class="${status.index==currentPage?
                     'btn btn-primary ms-1':'btn btn-outline-primary ms-1'}"
                        th:text="${status.index}"
-                       th:href="@{/user/medecin/index(page=${status.index},keyword=${keyword})}"
+                       th:href="@{/user/rendezvous/index(page=${status.index},keyword=${keyword})}"
                     ></a>
                 </li>
             </ul>
