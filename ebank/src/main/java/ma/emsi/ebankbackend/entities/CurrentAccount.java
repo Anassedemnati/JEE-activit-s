@@ -9,7 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-//@DiscriminatorValue("CA")
+@DiscriminatorValue("CA")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
