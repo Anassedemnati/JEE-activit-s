@@ -3,6 +3,8 @@ package ma.emsi.ebankbackend;
 import ma.emsi.ebankbackend.entities.*;
 import ma.emsi.ebankbackend.enumes.AccountStatus;
 import ma.emsi.ebankbackend.enumes.OperationType;
+import ma.emsi.ebankbackend.exceptions.BalanceNotSufficentExeption;
+import ma.emsi.ebankbackend.exceptions.BankAccountNotfoundExeption;
 import ma.emsi.ebankbackend.exceptions.CustomerNotFoundExeption;
 import ma.emsi.ebankbackend.repositories.AccountOperationRepository;
 import ma.emsi.ebankbackend.repositories.BankAccountRepository;
@@ -16,6 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -38,9 +41,21 @@ public class EbankBackendApplication {
                     try {
                         bankAccountService.saveCurrentBankAccount(Math.random()*9000,9000,customer.getId());
                         bankAccountService.saveSavingBankAccount(Math.random()*12000,5.5,customer.getId());
+                        List<BankAccount> bankAccountList= bankAccountService.bankAccountList();
+                        for (BankAccount bankAccount:bankAccountList){
+                            for (int i = 0; i < 10; i++) {
+                                bankAccountService.credit(bankAccount.getId(),10000+Math.random()*120000,"credit");
+                                bankAccountService.debit(bankAccount.getId(),1000+Math.random()*9000,"debit");
+                            }
+
+                        }
                     } catch (CustomerNotFoundExeption e) {
                         e.printStackTrace();
+                    } catch (BalanceNotSufficentExeption | BankAccountNotfoundExeption e) {
+                        e.printStackTrace();
                     }
+
+
                 });
         };
     }
