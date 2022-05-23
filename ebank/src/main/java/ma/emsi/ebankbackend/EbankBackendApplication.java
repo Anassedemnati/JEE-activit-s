@@ -3,9 +3,11 @@ package ma.emsi.ebankbackend;
 import ma.emsi.ebankbackend.entities.*;
 import ma.emsi.ebankbackend.enumes.AccountStatus;
 import ma.emsi.ebankbackend.enumes.OperationType;
+import ma.emsi.ebankbackend.exceptions.CustomerNotFoundExeption;
 import ma.emsi.ebankbackend.repositories.AccountOperationRepository;
 import ma.emsi.ebankbackend.repositories.BankAccountRepository;
 import ma.emsi.ebankbackend.repositories.CustomerRepository;
+import ma.emsi.ebankbackend.services.BankAccountService;
 import ma.emsi.ebankbackend.services.BankService;
 import org.omg.CORBA.Current;
 import org.springframework.boot.CommandLineRunner;
@@ -24,9 +26,22 @@ public class EbankBackendApplication {
         SpringApplication.run(EbankBackendApplication.class, args);
     }
 @Bean
-    CommandLineRunner commandLineRunner(BankService bankService){
+    CommandLineRunner commandLineRunner(BankAccountService bankAccountService){
         return args->{
-            bankService.consulter();
+                Stream.of("Hassane","Anasse","Mehdi").forEach(name->{
+                    Customer customer = new Customer();
+                    customer.setName(name);
+                    customer.setEmail(name+"@gmail.com");
+                    bankAccountService.saveCustomer(customer);
+                });
+                bankAccountService.listCustemers().forEach(customer -> {
+                    try {
+                        bankAccountService.saveCurrentBankAccount(Math.random()*9000,9000,customer.getId());
+                        bankAccountService.saveSavingBankAccount(Math.random()*12000,5.5,customer.getId());
+                    } catch (CustomerNotFoundExeption e) {
+                        e.printStackTrace();
+                    }
+                });
         };
     }
 
