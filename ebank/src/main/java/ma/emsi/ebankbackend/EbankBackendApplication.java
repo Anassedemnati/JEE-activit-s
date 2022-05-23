@@ -1,14 +1,12 @@
 package ma.emsi.ebankbackend;
 
-import ma.emsi.ebankbackend.entities.AccountOperation;
-import ma.emsi.ebankbackend.entities.CurrentAccount;
-import ma.emsi.ebankbackend.entities.Customer;
-import ma.emsi.ebankbackend.entities.SavingAccount;
+import ma.emsi.ebankbackend.entities.*;
 import ma.emsi.ebankbackend.enumes.AccountStatus;
 import ma.emsi.ebankbackend.enumes.OperationType;
 import ma.emsi.ebankbackend.repositories.AccountOperationRepository;
 import ma.emsi.ebankbackend.repositories.BankAccountRepository;
 import ma.emsi.ebankbackend.repositories.CustomerRepository;
+import ma.emsi.ebankbackend.services.BankService;
 import org.omg.CORBA.Current;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,7 +23,14 @@ public class EbankBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(EbankBackendApplication.class, args);
     }
-    @Bean
+@Bean
+    CommandLineRunner commandLineRunner(BankService bankService){
+        return args->{
+            bankService.consulter();
+        };
+    }
+
+    //@Bean
     CommandLineRunner  start(CustomerRepository customerRepository,
                              BankAccountRepository bankAccountRepository,
                              AccountOperationRepository accountOperationRepository) {
@@ -68,6 +73,8 @@ public class EbankBackendApplication {
                     accountOperationRepository.save(accountOperation);
 
                 }
+
+
             });
         };
     }
