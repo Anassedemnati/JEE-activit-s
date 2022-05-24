@@ -15,6 +15,10 @@ public interface BankAccountService {
 
     CustomerDTO saveCustomer(CustomerDTO customerDTO);
 
+    CustomerDTO updateCustomer(CustomerDTO customerDTO);
+
+    void deleteCustomer(Long customerId);
+
     BankAccount saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundExeption;
     BankAccount saveSavingBankAccount(double initialBalance,double intrestRate,Long customerId) throws CustomerNotFoundExeption;
     List<CustomerDTO> listCustemers();
