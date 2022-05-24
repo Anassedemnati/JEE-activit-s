@@ -11,8 +11,11 @@ import ma.emsi.ebankbackend.exceptions.CustomerNotFoundExeption;
 import java.util.List;
 
 public interface BankAccountService {
-    Customer saveCustomer(Customer customer);
-    BankAccount saveCurrentBankAccount(double initialBalance,double overDraft,Long customerId) throws CustomerNotFoundExeption;
+
+
+    CustomerDTO saveCustomer(CustomerDTO customerDTO);
+
+    BankAccount saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundExeption;
     BankAccount saveSavingBankAccount(double initialBalance,double intrestRate,Long customerId) throws CustomerNotFoundExeption;
     List<CustomerDTO> listCustemers();
     BankAccount getBankAccount(String accountId) throws BankAccountNotfoundExeption;

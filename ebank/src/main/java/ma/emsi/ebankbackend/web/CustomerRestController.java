@@ -7,10 +7,7 @@ import ma.emsi.ebankbackend.dtos.CustomerDTO;
 import ma.emsi.ebankbackend.entities.Customer;
 import ma.emsi.ebankbackend.exceptions.CustomerNotFoundExeption;
 import ma.emsi.ebankbackend.services.BankAccountService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +25,11 @@ public class CustomerRestController {
     @GetMapping("/customers/{id}")//path param norm rest
     public CustomerDTO getCustomer(@PathVariable(name = "id") Long customerId) throws CustomerNotFoundExeption {
         return bankAccountService.getCustomer(customerId);
+    }
+    @PostMapping("/customers")//@RequestBody on recupaire de core de la reques json
+    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
+        return bankAccountService.saveCustomer(customerDTO);
+
     }
 
 

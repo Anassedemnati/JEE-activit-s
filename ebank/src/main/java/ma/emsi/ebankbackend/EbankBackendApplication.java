@@ -1,5 +1,6 @@
 package ma.emsi.ebankbackend;
 
+import ma.emsi.ebankbackend.dtos.CustomerDTO;
 import ma.emsi.ebankbackend.entities.*;
 import ma.emsi.ebankbackend.enumes.AccountStatus;
 import ma.emsi.ebankbackend.enumes.OperationType;
@@ -32,7 +33,7 @@ public class EbankBackendApplication {
     CommandLineRunner commandLineRunner(BankAccountService bankAccountService){
         return args->{
                 Stream.of("Hassane","Anasse","Mehdi").forEach(name->{
-                    Customer customer = new Customer();
+                    CustomerDTO customer = new CustomerDTO();
                     customer.setName(name);
                     customer.setEmail(name+"@gmail.com");
                     bankAccountService.saveCustomer(customer);
