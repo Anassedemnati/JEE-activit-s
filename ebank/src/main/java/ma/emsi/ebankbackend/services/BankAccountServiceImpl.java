@@ -146,5 +146,10 @@ public class BankAccountServiceImpl implements BankAccountService {
     public List<BankAccount> bankAccountList(){
         return bankAccountRepository.findAll();
     }
+    @Override
+    public CustomerDTO getCustomer(Long custemerId) throws CustomerNotFoundExeption {
+        Customer customer = customerRepository.findById(custemerId).orElseThrow(() -> new CustomerNotFoundExeption("Customer Not found !"));
+        return bankAccountMapper.fromCustomer(customer);
+    }
 
 }
