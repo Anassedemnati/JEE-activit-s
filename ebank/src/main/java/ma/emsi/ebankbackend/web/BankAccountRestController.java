@@ -2,6 +2,7 @@ package ma.emsi.ebankbackend.web;
 
 
 import lombok.AllArgsConstructor;
+import ma.emsi.ebankbackend.dtos.BankAccountDTO;
 import ma.emsi.ebankbackend.services.BankAccountService;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class BankAccountRestController {
     private BankAccountService bankAccountService;
+
+
+
+
 
 
 }
