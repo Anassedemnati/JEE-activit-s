@@ -1,10 +1,7 @@
 package ma.emsi.ebankbackend.services;
 
 
-import ma.emsi.ebankbackend.dtos.BankAccountDTO;
-import ma.emsi.ebankbackend.dtos.CurrentBankAccountDTO;
-import ma.emsi.ebankbackend.dtos.CustomerDTO;
-import ma.emsi.ebankbackend.dtos.SavingBankAccountDTO;
+import ma.emsi.ebankbackend.dtos.*;
 import ma.emsi.ebankbackend.entities.BankAccount;
 import ma.emsi.ebankbackend.entities.Customer;
 import ma.emsi.ebankbackend.exceptions.BalanceNotSufficentExeption;
@@ -31,6 +28,8 @@ public interface BankAccountService {
     void transfer(String accountIDSource,String accountIdDestination,double amount) throws BalanceNotSufficentExeption, BankAccountNotfoundExeption;
 
     List<BankAccountDTO> bankAccountList();
+
+    List<AccountOperationDTO> accountHistory(String accountId);
 
     CustomerDTO getCustomer(Long custemerId) throws CustomerNotFoundExeption;
 }

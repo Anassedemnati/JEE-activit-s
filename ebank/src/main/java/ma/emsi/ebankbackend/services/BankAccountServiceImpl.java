@@ -2,10 +2,7 @@ package ma.emsi.ebankbackend.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.emsi.ebankbackend.dtos.BankAccountDTO;
-import ma.emsi.ebankbackend.dtos.CurrentBankAccountDTO;
-import ma.emsi.ebankbackend.dtos.CustomerDTO;
-import ma.emsi.ebankbackend.dtos.SavingBankAccountDTO;
+import ma.emsi.ebankbackend.dtos.*;
 import ma.emsi.ebankbackend.entities.*;
 import ma.emsi.ebankbackend.enumes.OperationType;
 import ma.emsi.ebankbackend.exceptions.BalanceNotSufficentExeption;
@@ -191,6 +188,13 @@ public class BankAccountServiceImpl implements BankAccountService {
         }).collect(Collectors.toList());
 
         return BankAccountDTOs;
+    }
+    @Override
+    public List<AccountOperationDTO> accountHistory(String accountId){
+        List<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountId(accountId);
+        List<AccountOperationDTO> accountOperationDTOs = accountOperations.stream().map(op ->
+                dtoMapper.fromAccountOperation(op)).collect(Collectors.toList());
+        return accountOperationDTOs;
     }
     @Override
     public CustomerDTO getCustomer(Long custemerId) throws CustomerNotFoundExeption {

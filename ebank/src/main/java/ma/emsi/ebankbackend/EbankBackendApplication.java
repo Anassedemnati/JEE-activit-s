@@ -1,6 +1,9 @@
 package ma.emsi.ebankbackend;
 
+import ma.emsi.ebankbackend.dtos.BankAccountDTO;
+import ma.emsi.ebankbackend.dtos.CurrentBankAccountDTO;
 import ma.emsi.ebankbackend.dtos.CustomerDTO;
+import ma.emsi.ebankbackend.dtos.SavingBankAccountDTO;
 import ma.emsi.ebankbackend.entities.*;
 import ma.emsi.ebankbackend.enumes.AccountStatus;
 import ma.emsi.ebankbackend.enumes.OperationType;
@@ -42,11 +45,17 @@ public class EbankBackendApplication {
                     try {
                         bankAccountService.saveCurrentBankAccount(Math.random()*9000,9000,customer.getId());
                         bankAccountService.saveSavingBankAccount(Math.random()*12000,5.5,customer.getId());
-                        List<BankAccount> bankAccountList= bankAccountService.bankAccountList();
-                        for (BankAccount bankAccount:bankAccountList){
+                        List<BankAccountDTO> bankAccountList= bankAccountService.bankAccountList();
+                        for (BankAccountDTO bankAccount:bankAccountList){
                             for (int i = 0; i < 10; i++) {
-                                bankAccountService.credit(bankAccount.getId(),10000+Math.random()*120000,"credit");
-                                bankAccountService.debit(bankAccount.getId(),1000+Math.random()*9000,"debit");
+                                String accountId;
+                                if (bankAccount instanceof SavingBankAccountDTO){
+                                    accountId=((SavingBankAccountDTO) bankAccount).getId();
+                                }else {
+                                    accountId=((CurrentBankAccountDTO) bankAccount).getId();
+                                }
+                                bankAccountService.credit(accountId,10000+Math.random()*120000,"credit");
+                                bankAccountService.debit(accountId,1000+Math.random()*9000,"debit");
                             }
 
                         }
