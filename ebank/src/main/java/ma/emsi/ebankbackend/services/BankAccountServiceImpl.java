@@ -12,6 +12,8 @@ import ma.emsi.ebankbackend.mappers.BankAccountMapperImpl;
 import ma.emsi.ebankbackend.repositories.AccountOperationRepository;
 import ma.emsi.ebankbackend.repositories.BankAccountRepository;
 import ma.emsi.ebankbackend.repositories.CustomerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -200,6 +202,22 @@ public class BankAccountServiceImpl implements BankAccountService {
     public CustomerDTO getCustomer(Long custemerId) throws CustomerNotFoundExeption {
         Customer customer = customerRepository.findById(custemerId).orElseThrow(() -> new CustomerNotFoundExeption("Customer Not found !"));
         return dtoMapper.fromCustomer(customer);
+    }
+
+    @Override
+    public AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotfoundExeption {
+        BankAccount bankAccount=bankAccountRepository.findById(accountId).orElse(null);
+        if (bankAccount==null)throw new BankAccountNotfoundExeption("Account not found !");
+        Page<AccountOperation> accountOperation = accountOperationRepository.findByBankAccountId(accountId, PageRequest.of(page, size));
+        AccountHistoryDTO accountHistoryDTO = new AccountHistoryDTO();
+        List<AccountOperationDTO> AccountOperationDTOs = accountOperation.getContent().stream().map(op -> dtoMapper.fromAccountOperation(op)).collect(Collectors.toList());
+        accountHistoryDTO.setAccountOperationDTOs(AccountOperationDTOs);
+        accountHistoryDTO.setAccountId(bankAccount.getId());
+        accountHistoryDTO.setBalance(bankAccount.getBalance());
+        accountHistoryDTO.setCurrrentPage(page);
+        accountHistoryDTO.setTotalPAges(size);
+        accountHistoryDTO.setTotalPAges(accountOperation.getTotalPages());
+        return accountHistoryDTO;
     }
 
 }
