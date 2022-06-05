@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin("*")
 public class CustomerRestController {
     private BankAccountService bankAccountService;
     @GetMapping("/customers")
@@ -29,6 +30,12 @@ public class CustomerRestController {
     @PostMapping("/customers")//@RequestBody on recupaire de core de la reques json
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
         return bankAccountService.saveCustomer(customerDTO);
+
+    }
+    @GetMapping("/customers/search")//@RequestBody on recupaire de core de la reques json
+    public List<CustomerDTO>serchCustomer(@RequestParam(name = "keyword",defaultValue = "")
+                                                      String keyword){
+        return bankAccountService.serachCustomer("%"+keyword+"%");
 
     }
     @PutMapping("/customers/{customerId}")
