@@ -3,6 +3,7 @@ package ma.emsi.ebankbackend.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ma.emsi.ebankbackend.dtos.BankAccountDTO;
 import ma.emsi.ebankbackend.dtos.CustomerDTO;
 import ma.emsi.ebankbackend.entities.Customer;
 import ma.emsi.ebankbackend.exceptions.CustomerNotFoundExeption;
@@ -47,6 +48,11 @@ public class CustomerRestController {
     public void deleteCustomer(@PathVariable Long id){
         bankAccountService.deleteCustomer(id);
     }
+    @GetMapping("/customers/{custemerId}/accounts")
+    public List<BankAccountDTO> getCustemerAccounts(@PathVariable Long custemerId){
+        return bankAccountService.getCustemerAccounts(custemerId);
+    }
+
 
 
 }

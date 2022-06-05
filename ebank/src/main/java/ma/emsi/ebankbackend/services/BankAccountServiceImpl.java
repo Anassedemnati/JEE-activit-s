@@ -228,5 +228,18 @@ public class BankAccountServiceImpl implements BankAccountService {
                  .collect(Collectors.toList());
 
     }
+    @Override
+    public List<BankAccountDTO> getCustemerAccounts(Long custemrId){
+        List<BankAccount> custemerBankAccount = bankAccountRepository.findByCustomer_Id(custemrId);
+        return custemerBankAccount.stream()
+                .map(bankAccount -> {
+                   if(bankAccount instanceof SavingAccount){
+                       return dtoMapper.fromSavingBankAccount((SavingAccount) bankAccount);
+                   }else {
+                      return dtoMapper.fromCurrentBankAccount((CurrentAccount) bankAccount);
+                   }
+                }).collect(Collectors.toList());
+
+    }
 
 }
